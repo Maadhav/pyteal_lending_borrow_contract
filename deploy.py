@@ -91,7 +91,7 @@ def init():
         500000
     )
 
-    # lend call
+    # withdraw call
     app_args = [
         "withdraw",
         100000,

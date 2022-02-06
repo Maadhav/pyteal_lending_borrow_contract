@@ -57,6 +57,7 @@ def approval_program():
         Approve(),
     )
 
+    # on_withdraw
     amount = Btoi(Txn.application_args[1])
     latest_total_deposits = App.localGet(
         Txn.sender(), total_deposits)
@@ -64,7 +65,7 @@ def approval_program():
     on_withdraw = Seq(
         If(
             And(
-                amount <= latest_total_deposits,
+                amount <= latest_total_deposits ,
                 amount >= Global.min_txn_fee(),
             )
         ).Then(
@@ -72,10 +73,9 @@ def approval_program():
                 # static interest for development purposes
                 sendAlgo(Txn.sender(), amount + latest_deposit_apy),
 
-                App.globalPut(market_size, latest_market_size -
-                              (amount + latest_deposit_apy)),
+                App.globalPut(market_size, latest_market_size - amount ),
                 App.localPut(Txn.sender(),
-                             total_deposits,  latest_total_deposits - (amount+latest_deposit_apy)),
+                             total_deposits,  latest_total_deposits - amount),
                 Approve(),
             ),
         ),
