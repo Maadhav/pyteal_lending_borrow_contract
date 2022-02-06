@@ -62,7 +62,6 @@ def init():
     )
 
     app_args = [
-        "lend"
     ]
 
     # create new application
@@ -76,12 +75,14 @@ def init():
         app_args,
     )
 
-    # app_id = 24
-
     # opt-in to application
     opt_in_app(algod_client, creator_private_key, app_id)
 
     # lend call
+    app_args = [
+        "lend"
+    ]
+
     call_app_with_payment(
         algod_client,
         creator_private_key,

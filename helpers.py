@@ -136,7 +136,8 @@ def call_app(client, private_key, index, app_args):
 
 
 def call_app_with_payment(client, private_key, index, app_args, amount):
-    print("Calling payment of ", amount, " and ", app_args[0], " method with args: ", app_args[1:])
+    print("Calling", app_args[0], " method with payment",
+          amount, "and with args: ", app_args[1:])
 
     # declare reciever
     appAddr = get_application_address(index)
