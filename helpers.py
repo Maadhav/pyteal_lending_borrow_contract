@@ -106,6 +106,7 @@ def opt_in_app(client, private_key, index):
     print("OptIn to app-id:", transaction_response["txn"]["txn"]["apid"])
 
 
+
 # call application
 def call_app(client, private_key, index, app_args):
     print("Calling ", app_args[0], " method with args: ", app_args[1:])

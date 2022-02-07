@@ -1,0 +1,26 @@
+{
+  "name": "pyteal_lending_borrow_contract",
+  "version": "1.0.0",
+  "description": "This is a smart contract, developed for building a lending pool on algorand.",
+  "main": "contract_call.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Maadhav/pyteal_lending_borrow_contract.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Maadhav/pyteal_lending_borrow_contract/issues"
+  },
+  "homepage": "https://github.com/Maadhav/pyteal_lending_borrow_contract#readme",
+  "dependencies": {
+    "algosdk": "^1.13.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.17.0",
+    "@babel/preset-env": "^7.16.11"
+  }
+}

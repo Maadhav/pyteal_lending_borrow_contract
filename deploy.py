@@ -13,8 +13,8 @@ from contract import approval_program, clear_state_program
 
 def init():
     # user declared account mnemonics
-    mnemonic = "cement soda parrot ridge pull produce vacuum climb life blanket prosper scout country orange legal mention tooth raise private ride potato hub powder above isolate"
-    address = "CCSYN4ZTBJNBNWZ4NHUHY6NFFG3P54VV6ZOQ7SVGAQNCUXDMN52NU4WMZ4"
+    mnemonic = "exit clap write shield video mistake oblige police flush feature snake category wisdom because boring spring early rally turtle banana modify habit approve able rotate"
+    address = "IODQCCDAR55ACZSW744KRFMTXSOQYLE4W572AJTQSNWX4A5RWXO4SAITXA"
 
     # define private keys
     creator_private_key = get_private_key_from_mnemonic(mnemonic)
