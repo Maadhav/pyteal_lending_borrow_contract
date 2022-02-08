@@ -49,6 +49,9 @@ async function callEverything() {
         console.log("repay: ", appArgs2)
         const callAppWithPayment = await helper.callAppWithPayment(algodClient, mnemonic, appId,appArgs2, 1000000);
 
+
+       await helper.readGlobalState(algodClient, accountInfo, appId)
+       await helper.readLocalState(algodClient, accountInfo, appId)
         // console.log("global_schema ", global_schema);
 
         // //Check your balance

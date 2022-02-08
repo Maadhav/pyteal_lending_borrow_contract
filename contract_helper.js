@@ -158,7 +158,7 @@ exports.callApp = async function (client, accountInfo, appArgs, appId) {
 // Call application with payment
 exports.callAppWithPayment = async function (client, mnemonic, appId, appArgs, amount) {
     console.log("Calling", appArgs[0], " method with payment",
-    amount)
+        amount)
 
     const appAddr = algosdk.getApplicationAddress(appId)
     const sender = algosdk.mnemonicToSecretKey(mnemonic);
@@ -175,7 +175,7 @@ exports.callAppWithPayment = async function (client, mnemonic, appId, appArgs, a
         to: appAddr,
         amount,
         suggestedParams,
-      });
+    });
     let txn2 = algosdk.makeApplicationNoOpTxn(
         sender.addr,
         suggestedParams,
@@ -196,7 +196,25 @@ exports.callAppWithPayment = async function (client, mnemonic, appId, appArgs, a
     console.log('Transactions successful.');
 }
 
+exports.readLocalState = async function (algodClient, accountInfo, appId) {
+    let account = await algodClient.accountInformation(accountInfo.address).do();
+    for (const app in account['apps-local-state']) {
+        if (app.id == appId) {
+            console.log("readLocalState : ",app["key-value"]);
+            return app["key-value"]
+        }
+    }
+}
 
+exports.readGlobalState = async function (algodClient, accountInfo, appId) {
+    let account = await algodClient.accountInformation(accountInfo.address).do();
+    for (const app in account['created-apps']) {
+        if (app.id == appId) {
+            console.log("readGlobalState : ",app["params"]["global-state"]);
+            return app["params"]["global-state"]
+        }
+    }
+}
 
 
 
