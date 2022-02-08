@@ -6,8 +6,13 @@ const helper = require('./contract_helper')
 async function callEverything() {
 
     try {
-        const mnemonic = "exit clap write shield video mistake oblige police flush feature snake category wisdom because boring spring early rally turtle banana modify habit approve able rotate"
-        const address = "IODQCCDAR55ACZSW744KRFMTXSOQYLE4W572AJTQSNWX4A5RWXO4SAITXA"
+        // Ravinder address
+        // const mnemonic = "exit clap write shield video mistake oblige police flush feature snake category wisdom because boring spring early rally turtle banana modify habit approve able rotate"
+        // const address = "IODQCCDAR55ACZSW744KRFMTXSOQYLE4W572AJTQSNWX4A5RWXO4SAITXA"
+        
+        // Maadhav address
+        const mnemonic = "cement soda parrot ridge pull produce vacuum climb life blanket prosper scout country orange legal mention tooth raise private ride potato hub powder above isolate"
+        const address = "CCSYN4ZTBJNBNWZ4NHUHY6NFFG3P54VV6ZOQ7SVGAQNCUXDMN52NU4WMZ4"
 
         // let myAccount = createAccount();
         let creatorPrivateKey = helper.getPrrivatekeyFromMnemonic(mnemonic).sk;
@@ -21,7 +26,7 @@ async function callEverything() {
 
         let accountInfo = await algodClient.accountInformation(address).do();
         accountInfo.sk = creatorPrivateKey;
-        console.log("accountInfo ", accountInfo);
+        // console.log("accountInfo ", accountInfo);
         if (accountInfo.amount < algosdk.ALGORAND_MIN_TX_FEE) {
             console.log("Please add funds before proceeding...... ", accountInfo);
         }
@@ -38,10 +43,10 @@ async function callEverything() {
         const optInTxn = await helper.optInTxn(algodClient, accountInfo, appId);
 
         var appArgs1 = [];
-        appArgs1.push(new Uint8Array(Buffer.from("withdraw")));
-        appArgs1.push(new Uint8Array(Buffer.from("100000")));
+        appArgs1.push(new Uint8Array(Buffer.from("lend")));
+        // appArgs1.push(new Uint8Array(Buffer.from("100000")));
         console.log("appArgs1: ", appArgs1)
-        const callApp = await helper.callApp(algodClient, accountInfo, appArgs1, appId);
+        const callApp = await helper.callAppWithPayment(algodClient, mnemonic, appId, appArgs1, 500000);
 
 
         var appArgs2 = [];
