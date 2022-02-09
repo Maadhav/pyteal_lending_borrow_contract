@@ -74,7 +74,7 @@ def approval_program():
             Seq(
                 sendAlgo(Txn.sender(), total_amt),
 
-                App.globalPut(market_size, latest_market_size - amount),
+                App.globalPut(market_size, latest_market_size - total_amt),
                 App.localPut(Txn.sender(),
                              total_deposits,  latest_total_deposits - amount),
                 Approve(),
@@ -124,8 +124,9 @@ def approval_program():
                 total_amt <= latest_total_borrows,
             )
         ),
+        App.globalPut(market_size, latest_market_size + Gtxn[on_repay_txn_index].amount()),
         App.localPut(Gtxn[on_repay_txn_index].sender(),
-                     total_borrows,  latest_total_borrows - Gtxn[on_repay_txn_index].amount()),
+                     total_borrows,  latest_total_borrows - total_amt),
         Approve(),
     )
 
