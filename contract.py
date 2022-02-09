@@ -108,12 +108,13 @@ def approval_program():
     )
 
     # on_repay
+    amount = Btoi(Txn.application_args[1])
     on_repay_txn_index = Txn.group_index() - Int(1)
     latest_total_borrows = App.localGet(
         Gtxn[on_repay_txn_index].sender(), total_borrows)
     latest_borrow_apy = App.globalGet(deposit_apy)
     total_amt = Div(Minus(Mul(Int(1000000), Gtxn[on_repay_txn_index].amount()), Mul(
-        Gtxn[on_repay_txn_index].amount(), latest_borrow_apy)), Int(1000000))
+        amount, latest_borrow_apy)), Int(1000000))
     latest_market_size = App.globalGet(market_size)
     on_repay = Seq(
         Assert(
