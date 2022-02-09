@@ -1,3 +1,4 @@
+from tkinter import Misc
 from pyteal import *
 
 
@@ -30,8 +31,8 @@ def approval_program():
     # on_create
     on_create = Seq(
         App.globalPut(market_size, Int(0)),
-        App.globalPut(deposit_apy, Int(500)),
-        App.globalPut(borrow_apy, Int(1000)),
+        App.globalPut(deposit_apy, Int(50000)),
+        App.globalPut(borrow_apy, Int(100000)),
         Approve()
     )
 
@@ -62,18 +63,18 @@ def approval_program():
     latest_total_deposits = App.localGet(
         Txn.sender(), total_deposits)
     latest_deposit_apy = App.globalGet(deposit_apy)
+    total_amt = Add(amount, Div(amount, latest_deposit_apy))
     on_withdraw = Seq(
         If(
             And(
-                amount <= latest_total_deposits ,
+                amount <= latest_total_deposits,
                 amount >= Global.min_txn_fee(),
             )
         ).Then(
             Seq(
-                # static interest for development purposes
-                sendAlgo(Txn.sender(), amount + latest_deposit_apy),
+                sendAlgo(Txn.sender(), total_amt),
 
-                App.globalPut(market_size, latest_market_size - amount ),
+                App.globalPut(market_size, latest_market_size - amount),
                 App.localPut(Txn.sender(),
                              total_deposits,  latest_total_deposits - amount),
                 Approve(),
@@ -86,7 +87,6 @@ def approval_program():
     amount = Btoi(Txn.application_args[1])
     latest_total_borrows = App.localGet(
         Txn.sender(), total_borrows)
-    latest_market_size = App.globalGet(market_size)
     on_borrow = Seq(
         If(
             And(
@@ -107,10 +107,12 @@ def approval_program():
     )
 
     # on_repay
-    # when sending the payment, interest will be added from client side
     on_repay_txn_index = Txn.group_index() - Int(1)
     latest_total_borrows = App.localGet(
         Gtxn[on_repay_txn_index].sender(), total_borrows)
+    latest_borrow_apy = App.globalGet(deposit_apy)
+    total_amt = Minus(Gtxn[on_repay_txn_index].amount(), Div(Gtxn[on_repay_txn_index].amount(), latest_borrow_apy))
+    latest_market_size = App.globalGet(market_size)
     on_repay = Seq(
         Assert(
             And(
@@ -119,7 +121,7 @@ def approval_program():
                 Gtxn[on_repay_txn_index].receiver()
                 == Global.current_application_address(),
                 Gtxn[on_repay_txn_index].amount() >= Global.min_txn_fee(),
-                Gtxn[on_repay_txn_index].amount() <= latest_total_borrows,
+                total_amt <= latest_total_borrows,
             )
         ),
         App.localPut(Gtxn[on_repay_txn_index].sender(),

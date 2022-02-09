@@ -16,8 +16,8 @@ def init():
     # mnemonic = "exit clap write shield video mistake oblige police flush feature snake category wisdom because boring spring early rally turtle banana modify habit approve able rotate"
     # address = "IODQCCDAR55ACZSW744KRFMTXSOQYLE4W572AJTQSNWX4A5RWXO4SAITXA"
 
-    mnemonic = "cement soda parrot ridge pull produce vacuum climb life blanket prosper scout country orange legal mention tooth raise private ride potato hub powder above isolate"
-    address = "CCSYN4ZTBJNBNWZ4NHUHY6NFFG3P54VV6ZOQ7SVGAQNCUXDMN52NU4WMZ4"
+    mnemonic = "boat sort judge initial essay govern smart lumber tongue shallow access pipe sketch snack casino frozen danger powder need retreat dust fun diary absorb hunt"
+    address = "D5EYVF7RNMMWVAHL7PD267IXQZRW2ZZ3D4L372HTJGJC64YYGZSPLX2U3I"
 
     # define private keys
     creator_private_key = get_private_key_from_mnemonic(mnemonic)
@@ -36,47 +36,47 @@ def init():
         return
 
     # declare application state storage (immutable)
-    # local_ints = 2
-    # local_bytes = 2
-    # global_ints = 3
-    # global_bytes = 3
-    # global_schema = transaction.StateSchema(global_ints, global_bytes)
-    # local_schema = transaction.StateSchema(local_ints, local_bytes)
+    local_ints = 2
+    local_bytes = 2
+    global_ints = 3
+    global_bytes = 3
+    global_schema = transaction.StateSchema(global_ints, global_bytes)
+    local_schema = transaction.StateSchema(local_ints, local_bytes)
 
-    # # get PyTeal approval program
-    # approval_program_ast = approval_program()
-    # # compile program to TEAL assembly
-    # approval_program_teal = compileTeal(
-    #     approval_program_ast, mode=Mode.Application, version=5
-    # )
-    # # compile program to binary
-    # approval_program_compiled = compile_program(
-    #     algod_client, approval_program_teal)
+    # get PyTeal approval program
+    approval_program_ast = approval_program()
+    # compile program to TEAL assembly
+    approval_program_teal = compileTeal(
+        approval_program_ast, mode=Mode.Application, version=5
+    )
+    # compile program to binary
+    approval_program_compiled = compile_program(
+        algod_client, approval_program_teal)
 
-    # # get PyTeal clear state program
-    # clear_state_program_ast = clear_state_program()
-    # # compile program to TEAL assembly
-    # clear_state_program_teal = compileTeal(
-    #     clear_state_program_ast, mode=Mode.Application, version=5
-    # )
-    # # compile program to binary
-    # clear_state_program_compiled = compile_program(
-    #     algod_client, clear_state_program_teal
-    # )
+    # get PyTeal clear state program
+    clear_state_program_ast = clear_state_program()
+    # compile program to TEAL assembly
+    clear_state_program_teal = compileTeal(
+        clear_state_program_ast, mode=Mode.Application, version=5
+    )
+    # compile program to binary
+    clear_state_program_compiled = compile_program(
+        algod_client, clear_state_program_teal
+    )
 
-    # app_args = [
-    # ]
+    app_args = [
+    ]
 
-    # # create new application
-    # app_id = create_app(
-    #     algod_client,
-    #     creator_private_key,
-    #     approval_program_compiled,
-    #     clear_state_program_compiled,
-    #     global_schema,
-    #     local_schema,
-    #     app_args,
-    # )
+    # create new application
+    app_id = create_app(
+        algod_client,
+        creator_private_key,
+        approval_program_compiled,
+        clear_state_program_compiled,
+        global_schema,
+        local_schema,
+        app_args,
+    )
 
     # # opt-in to application
     # opt_in_app(algod_client, creator_private_key, app_id)
