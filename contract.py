@@ -113,8 +113,7 @@ def approval_program():
     latest_total_borrows = App.localGet(
         Gtxn[on_repay_txn_index].sender(), total_borrows)
     latest_borrow_apy = App.globalGet(deposit_apy)
-    total_amt = Div(Minus(Mul(Int(1000000), Gtxn[on_repay_txn_index].amount()), Mul(
-        amount, latest_borrow_apy)), Int(1000000))
+    original_amt = Mul(Int(1000000), Div(Gtxn[on_repay_txn_index].amount(), Add(Int(1000000), latest_borrow_apy)))
     latest_market_size = App.globalGet(market_size)
     on_repay = Seq(
         Assert(
@@ -124,13 +123,13 @@ def approval_program():
                 Gtxn[on_repay_txn_index].receiver()
                 == Global.current_application_address(),
                 Gtxn[on_repay_txn_index].amount() >= Global.min_txn_fee(),
-                total_amt <= latest_total_borrows,
+                original_amt <= latest_total_borrows,
             )
         ),
         App.globalPut(market_size, latest_market_size +
                       Gtxn[on_repay_txn_index].amount()),
         App.localPut(Gtxn[on_repay_txn_index].sender(),
-                     total_borrows,  latest_total_borrows - total_amt),
+                     total_borrows,  latest_total_borrows - original_amt),
         Approve(),
     )
 
