@@ -13,9 +13,6 @@ from contract import approval_program, clear_state_program
 
 def init():
     # user declared account mnemonics
-    # mnemonic = "exit clap write shield video mistake oblige police flush feature snake category wisdom because boring spring early rally turtle banana modify habit approve able rotate"
-    # address = "IODQCCDAR55ACZSW744KRFMTXSOQYLE4W572AJTQSNWX4A5RWXO4SAITXA"
-
     mnemonic = "boat sort judge initial essay govern smart lumber tongue shallow access pipe sketch snack casino frozen danger powder need retreat dust fun diary absorb hunt"
     address = "D5EYVF7RNMMWVAHL7PD267IXQZRW2ZZ3D4L372HTJGJC64YYGZSPLX2U3I"
 
@@ -78,58 +75,58 @@ def init():
         app_args,
     )
 
-    # # opt-in to application
-    # opt_in_app(algod_client, creator_private_key, app_id)
+    # opt-in to application
+    opt_in_app(algod_client, creator_private_key, app_id)
 
-    # # lend call
-    # app_args = [
-    #     "lend"
-    # ]
+    # lend call
+    app_args = [
+        "lend"
+    ]
 
-    # call_app_with_payment(
-    #     algod_client,
-    #     creator_private_key,
-    #     app_id,
-    #     app_args,
-    #     500000
-    # )
+    call_app_with_payment(
+        algod_client,
+        creator_private_key,
+        app_id,
+        app_args,
+        500000
+    )
 
-    # # withdraw call
-    # app_args = [
-    #     "withdraw",
-    #     100000,
-    # ]
-    # call_app(
-    #     algod_client,
-    #     creator_private_key,
-    #     app_id,
-    #     app_args,
-    # )
+    # withdraw call
+    app_args = [
+        "withdraw",
+        100000,
+    ]
+    call_app(
+        algod_client,
+        creator_private_key,
+        app_id,
+        app_args,
+    )
 
-    # # borrow call
-    # app_args = [
-    #     "borrow",
-    #     100000,
-    # ]
-    # call_app(
-    #     algod_client,
-    #     creator_private_key,
-    #     app_id,
-    #     app_args,
-    # )
+    # borrow call
+    app_args = [
+        "borrow",
+        100000,
+    ]
+    call_app(
+        algod_client,
+        creator_private_key,
+        app_id,
+        app_args,
+    )
 
-    # # repay call
-    # app_args = [
-    #     "repay",
-    # ]
-    # call_app_with_payment(
-    #     algod_client,
-    #     creator_private_key,
-    #     app_id,
-    #     app_args,
-    #     50000 + 1000,  # 1000 interest
-    # )
-    app_id = 7
+    # repay call
+    app_args = [
+        "repay",
+    ]
+    call_app_with_payment(
+        algod_client,
+        creator_private_key,
+        app_id,
+        app_args,
+        50000 + 1000,  # 1000 interest
+    )
+
     # read global state of application
     print(
         "Global state:",
